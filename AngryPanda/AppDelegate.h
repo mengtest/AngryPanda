@@ -2,8 +2,8 @@
 //  AppDelegate.h
 //  AngryPanda
 //
-//  Created by Ricky on 10/23/12.
-//  Copyright ifishome 2012. All rights reserved.
+//  Created by eseedo on 10/23/12.
+//  Copyright eseedo 2012. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

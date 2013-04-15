@@ -54,7 +54,9 @@ void GLESDebugDraw::initShader( void )
 void GLESDebugDraw::DrawPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
+    [mShaderProgram setUniformsForBuiltins];
+    
 
 	ccVertex2F vertices[vertexCount];
 
@@ -78,8 +80,9 @@ void GLESDebugDraw::DrawPolygon(const b2Vec2* old_vertices, int32 vertexCount, c
 void GLESDebugDraw::DrawSolidPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
-
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
+  [mShaderProgram setUniformsForBuiltins];
+    
 	ccVertex2F vertices[vertexCount];
 
 	for( int i=0;i<vertexCount;i++) {
@@ -107,8 +110,10 @@ void GLESDebugDraw::DrawSolidPolygon(const b2Vec2* old_vertices, int32 vertexCou
 void GLESDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
-
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
+  [mShaderProgram setUniformsForBuiltins];
+    
+    
 	const float32 k_segments = 16.0f;
 	int vertexCount=16;
 	const float32 k_increment = 2.0f * b2_pi / k_segments;
@@ -136,8 +141,10 @@ void GLESDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Col
 void GLESDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
 
+      [mShaderProgram setUniformsForBuiltins];
+    
 	const float32 k_segments = 16.0f;
 	int vertexCount=16;
 	const float32 k_increment = 2.0f * b2_pi / k_segments;
@@ -172,8 +179,10 @@ void GLESDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const 
 void GLESDebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
 
+      [mShaderProgram setUniformsForBuiltins];
+    
 	[mShaderProgram setUniformLocation:mColorLocation withF1:color.r f2:color.g f3:color.b f4:1];
 
 	GLfloat				glVertices[] = {
@@ -204,8 +213,10 @@ void GLESDebugDraw::DrawTransform(const b2Transform& xf)
 void GLESDebugDraw::DrawPoint(const b2Vec2& p, float32 size, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
 
+      [mShaderProgram setUniformsForBuiltins];
+    
 	[mShaderProgram setUniformLocation:mColorLocation withF1:color.r f2:color.g f3:color.b f4:1];
 
 //	glPointSize(size);
@@ -234,8 +245,10 @@ void GLESDebugDraw::DrawString(int x, int y, const char *string, ...)
 void GLESDebugDraw::DrawAABB(b2AABB* aabb, const b2Color& color)
 {
 	[mShaderProgram use];
-	[mShaderProgram setUniformForModelViewProjectionMatrix];
+//	[mShaderProgram setUniformForModelViewProjectionMatrix];
 
+      [mShaderProgram setUniformsForBuiltins];
+    
 	[mShaderProgram setUniformLocation:mColorLocation withF1:color.r f2:color.g f3:color.b f4:1];
 
 	GLfloat				glVertices[] = {

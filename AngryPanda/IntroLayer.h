@@ -3,7 +3,7 @@
 //  AngryPanda
 //
 //  Created by Ricky on 10/23/12.
-//  Copyright ifishome 2012. All rights reserved.
+//  Copyright eseedo 2012. All rights reserved.
 //
 
 

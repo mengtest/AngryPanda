@@ -2,14 +2,17 @@
 //  AppDelegate.mm
 //  AngryPanda
 //
-//  Created by Ricky on 10/23/12.
-//  Copyright ifishome 2012. All rights reserved.
+//  Created by eseedo on 10/23/12.
+//  Copyright eseedo 2012. All rights reserved.
 //
 
 #import "cocos2d.h"
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import "MobClick.h"
+#import "LoadingScreen.h"
+#import "SimpleAudioEngine.h"
 
 @implementation AppController
 
@@ -38,7 +41,7 @@
 	director_.wantsFullScreenLayout = YES;
 	
 	// Display FSP and SPF
-	[director_ setDisplayStats:YES];
+	[director_ setDisplayStats:NO];
 	
 	// set FPS at 60
 	[director_ setAnimationInterval:1.0/60];
@@ -84,6 +87,21 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+    //友盟统计工具
+    //@lock 不自动锁屏
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
+    //umeng
+    [MobClick startWithAppkey:@"504eb52b527015190b00025f" reportPolicy:REALTIME channelId:nil];
+    
+    //@version update 版本更新
+    [MobClick checkUpdate:NSLocalizedString(@"new version", nil) cancelButtonTitle:NSLocalizedString(@"skip", nil) otherButtonTitles:NSLocalizedString(@"goto store", nil) ];
+    [MobClick updateOnlineConfig];
+    
+    //@push
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
 	
 	return YES;
 }
@@ -96,7 +114,7 @@
 	if(director.runningScene == nil) {
 		// Add the first scene to the stack. The director will draw it immediately into the framebuffer. (Animation is started automatically when the view is displayed.)
 		// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-		[director runWithScene: [IntroLayer scene]];
+		[director runWithScene: [LoadingScreen scene]];
 	}
 }
 
@@ -150,6 +168,50 @@
 {
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
+
+//推送
+//推送通知
+
+//@push
+#pragma mark - push notification
+- (void)pushNotification{
+    //本地通知提示
+    int day = 60*60*24;
+    //int day = 10;
+    int fireTimes[] = {day, day*3, day*7, day*14, day*30};
+    int fireNumber = 5;
+    
+    NSString *push_string[] = {NSLocalizedString(@"愤怒的熊猫，战便战", nil), NSLocalizedString(@"MOP,always", nil), NSLocalizedString(@"Once upon a time...", nil), NSLocalizedString(@"别让玩家太反感了，推送有个度", nil),};
+    int pushNumber = 4;
+    
+    NSDate *itemDate = [NSDate date];
+    
+    for (int i=0; i<fireNumber; i++) {
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        
+        if (localNotif == nil) {
+            return;
+        }
+        
+        localNotif.fireDate = [itemDate dateByAddingTimeInterval:fireTimes[i] ];
+        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+        
+        int pushIndex = arc4random()%pushNumber;
+        localNotif.alertBody = push_string[pushIndex];
+        localNotif.alertAction = NSLocalizedString(@"see", nil);
+        
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+        
+        [localNotif release];
+    }
+}
+
+
+
+
+
 
 - (void) dealloc
 {

@@ -3,13 +3,14 @@
 //  AngryPanda
 //
 //  Created by Ricky on 10/23/12.
-//  Copyright ifishome 2012. All rights reserved.
+//  Copyright eseedo 2012. All rights reserved.
 //
 
 
 // Import the interfaces
 #import "IntroLayer.h"
-#import "HelloWorldLayer.h"
+//#import "HelloWorldLayer.h"
+#import "SceneManager.h"
 
 
 #pragma mark - IntroLayer
@@ -61,6 +62,7 @@
 -(void) onEnter
 {
 	[super onEnter];
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] ]];
+//	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] ]];
+    [SceneManager goStartGame];
 }
 @end
